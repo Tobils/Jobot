@@ -28,7 +28,6 @@ class Webhook extends CI_Controller {
 
   public function index()
   {
- 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       echo "Hello Coders!";
       header('HTTP/1.1 400 Only POST method allowed');
@@ -70,10 +69,8 @@ class Webhook extends CI_Controller {
  
       } // end of foreach
     }
-
     // debuging data
     file_put_contents('php://stderr', 'Body: '.$body);
- 
   } // end of index.php
 
 
@@ -86,8 +83,9 @@ class Webhook extends CI_Controller {
      $profile = $res->getJSONDecodedBody();
 
      // create welcome message
-     $message  = "Salam kenal, " . $profile['displayName'] . "!\n";
-     $message .= "Silakan kirim pesan \"MULAI\" untuk memulai kuis.";
+     $message  = "Assalamualaikum Wr.Wb, " . $profile['displayName'] . "!\n";
+     $message  = "Jobot merupakan chatbot line yang membantu anda mempersiapkan diri menghadapi Ujian Nasional dan Ujian SBMPTN";
+     $message .= "Silakan kirim pesan \"ayok\" untuk memulai latihan.";
      $textMessageBuilder = new TextMessageBuilder($message);
 
      // create sticker message
@@ -108,11 +106,28 @@ class Webhook extends CI_Controller {
 
  private function textMessage($event)
  {
-   $userMessage = $event['message']['text'];
-   if($this->user['number'] == 0)
+   $userMessage = $event['message']['text']; // mengambil pesan text dari event
+   if($this->user['number'] == 0) // user belum mengerjakan kuis
    {
-     if(strtolower($userMessage) == 'mulai')
+     if(strtolower($userMessage) == 'ayok')
      {
+       // menampilkan pilihan matapelajaran dengan flex_message
+       if (strtolower($event['message']['text']) == 'cuk'){
+        $flexTemplate = file_get_contents("flex_message.json"); // load template flex message
+        $result = $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+            'replyToken' => $event['replyToken'],
+            'messages'   => [
+                [
+                    'type'     => 'flex',
+                    'altText'  => 'Semangat menggapai mimpi !',
+                    'contents' => json_decode($flexTemplate)
+                ]
+            ],
+        ]);
+        return $res->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
+
+      // program untuk mengambil soal sesuai dengan matpel dan jenis latihan
+
        // reset score
        $this->tebakkode_m->setScore($this->user['user_id'], 0);
        // update number progress

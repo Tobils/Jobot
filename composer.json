@@ -1,10 +1,10 @@
 {
-	"config": {
-		"vendor-dir": "lib/vendor"
-	},
-	"require": {
-		"php": ">=5.6",
-		"linecorp/line-bot-sdk": "^1.4",
-		"vlucas/phpdotenv": "^2.4"
-	}
+    "name": "ade_suhada/line-bot-php",
+    "description": "Simple line bot using php slim framework",
+    "type": "Project",
+    "require": {
+        "php": "^7.1",
+        "slim/slim": "^3.11",
+        "linecorp/line-bot-sdk": "^3.6"
+    }
 }
