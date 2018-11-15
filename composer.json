@@ -1,0 +1,10 @@
+{
+    "name": "ade_suhada/line-bot-php",
+    "description": "Simple line bot using php slim framework",
+    "type": "Project",
+    "require": {
+        "php": "^7.1",
+        "slim/slim": "^3.11",
+        "linecorp/line-bot-sdk": "^3.6"
+    }
+}
