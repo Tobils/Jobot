@@ -119,8 +119,8 @@ class Webhook extends CI_Controller {
        $this->sendQuestion($event['replyToken'], 1);
        
      } else {
-      $flexTemplate = file_get_contents("flex_message.json"); // load template flex message
-      $this->bot->post($event['replyToken'], $flexTemplate);
+      // $flexTemplate = file_get_contents("flex_message.json"); // load template flex message
+      // $this->bot->replyMessage($event['replyToken'], $flexTemplate);
 
       // $this->bot->post([
       //     'replyToken' => $event['replyToken'],
@@ -132,10 +132,10 @@ class Webhook extends CI_Controller {
       //         ]
       //     ],
       // ]);
-      //  $this->bot->replyMessage($event['replyToken'], $multiMessageBuilder);
       //  $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';
       //  $textMessageBuilder = new TextMessageBuilder($message);
       //  $this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
+       $this->$bot->replyText($event['replyToken'], $event['message']['text']);
      }
 
    // if user already begin test
