@@ -135,9 +135,9 @@ class Webhook extends CI_Controller {
                                     ]
                                 ],
                             ]);
-                            //return $result;
+                            return $result;
                             //echo json_encode($result->getJSONDecodedBody());
-                     //$this->bot->replyMessage($event['replyToken'], $result);
+                     $this->bot->replyMessage($event['replyToken'], $result);
                        
      }
 
