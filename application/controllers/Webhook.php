@@ -120,7 +120,7 @@ class Webhook extends CI_Controller {
      } else {
 
       $flexTemplate = file_get_contents("flex_message.json"); // load template flex message
-      $this->bot->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+      $this->bot->post([
           'replyToken' => $event['replyToken'],
           'messages'   => [
               [
@@ -130,8 +130,6 @@ class Webhook extends CI_Controller {
               ]
           ],
       ]);
-
-      return $res->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
       //  $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';
       //  $textMessageBuilder = new TextMessageBuilder($message);
       //  $this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
@@ -212,8 +210,8 @@ class Webhook extends CI_Controller {
 
      // create play again message
      $message = ($this->user['score'] < 8) ?
-     'Wkwkwk! Nyerah? Ketik "MULAI" untuk bermain lagi!':
-     'Great! Mantap bro! Ketik "MULAI" untuk bermain lagi!';
+     'Jangan Nyerah !!! Ketik "ayok" untuk berlatih lagi!':
+     'Great! Mantap bro! Ketik "ayok" untuk berlatih lagi!';
      $textMessageBuilder2 = new TextMessageBuilder($message);
 
      // merge all message
