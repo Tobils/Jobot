@@ -111,23 +111,6 @@ class Webhook extends CI_Controller {
    {
      if(strtolower($userMessage) == 'ayok')
      {
-       // menampilkan pilihan matapelajaran dengan flex_message
-       if (strtolower($event['message']['text']) == 'cuk'){
-        $flexTemplate = file_get_contents("flex_message.json"); // load template flex message
-        $result = $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
-            'replyToken' => $event['replyToken'],
-            'messages'   => [
-                [
-                    'type'     => 'flex',
-                    'altText'  => 'Semangat menggapai mimpi !',
-                    'contents' => json_decode($flexTemplate)
-                ]
-            ],
-        ]);
-        return $res->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
-
-      // program untuk mengambil soal sesuai dengan matpel dan jenis latihan
-
        // reset score
        $this->tebakkode_m->setScore($this->user['user_id'], 0);
        // update number progress
