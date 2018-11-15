@@ -84,7 +84,7 @@ class Webhook extends CI_Controller {
 
      // create welcome message
      $message  = "Assalamualaikum Wr.Wb, " . $profile['displayName'] . "!\n";
-     $message  = "Jobot merupakan chatbot line yang membantu anda mempersiapkan diri menghadapi Ujian Nasional dan Ujian SBMPTN";
+     $message  = "Jobot merupakan chatbot line yang membantu anda mempersiapkan diri menghadapi Ujian Nasional dan Ujian SBMPTN ";
      $message .= "Silakan kirim pesan \"ayok\" untuk memulai latihan.";
      $textMessageBuilder = new TextMessageBuilder($message);
 
@@ -111,6 +111,20 @@ class Webhook extends CI_Controller {
    {
      if(strtolower($userMessage) == 'ayok')
      {
+      $flexTemplate = file_get_contents("flex_message.json"); // load template flex message
+      $result = $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+          'replyToken' => $event['replyToken'],
+          'messages'   => [
+              [
+                  'type'     => 'flex',
+                  'altText'  => 'Semangat menggapai mimpi !',
+                  'contents' => json_decode($flexTemplate)
+              ]
+          ],
+      ]);
+
+      return $res->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
+
        // reset score
        $this->tebakkode_m->setScore($this->user['user_id'], 0);
        // update number progress
@@ -118,7 +132,7 @@ class Webhook extends CI_Controller {
        // send question no.1
        $this->sendQuestion($event['replyToken'], 1);
      } else {
-       $message = 'Silakan kirim pesan "MULAI" untuk memulai kuis.';
+       $message = 'Silakan kirim pesan "ayok" untuk memulai kuis.';
        $textMessageBuilder = new TextMessageBuilder($message);
        $this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
      }
@@ -136,7 +150,7 @@ class Webhook extends CI_Controller {
    $stickerMessageBuilder = new StickerMessageBuilder(1, 106);
 
    // create text message
-   $message = 'Silakan kirim pesan "MULAI" untuk memulai kuis.';
+   $message = 'Silakan kirim pesan "ayok" untuk memulai kuis.';
    $textMessageBuilder = new TextMessageBuilder($message);
 
    // merge all message
