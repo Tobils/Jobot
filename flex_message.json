@@ -1,0 +1,401 @@
+{
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "hero": {
+        "type": "image",
+        "size": "full",
+        "aspectRatio": "20:13",
+        "aspectMode": "cover",
+        "url": "https://res.cloudinary.com/widya-ai/image/upload/v1542017932/botjo/no_1.png"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Biologi",
+            "wrap": true,
+            "weight": "bold",
+            "size": "xl"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "UN",
+                "wrap": true,
+                "weight": "bold",
+                "size": "xl",
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": ", SBMPTN",
+                "wrap": true,
+                "weight": "bold",
+                "size": "sm",
+                "flex": 0
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "(H.R. Bukhari dan Muslim)",
+                "wrap": true,
+                "size": "xxs",
+                "flex": 0
+              }
+            ]
+          }, 
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "”Tidak beriman seseorang di antara kalian hingga ia mencintai Saudaranya sebagaimana mencintai dirinya sendiri.”",
+                "wrap": true,
+                "size": "xxs",
+                "color": "#94b1b9",
+                "flex": 0
+              }
+            ]
+          }
+        ]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "button",
+            "style": "primary",
+            "action": {
+              "type": "postback",
+              "label": "UN Biologi",
+              "displayText" : "UN Biologi",
+              "data" : "UN Biologi"
+            }
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "SBMPTN Biologi",
+              "displayText" : "SBMPTN Biologi",
+              "data" : "SBMPTN Biologi"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "bubble",
+      "hero": {
+        "type": "image",
+        "size": "full",
+        "aspectRatio": "20:13",
+        "aspectMode": "cover",
+        "url": "https://res.cloudinary.com/widya-ai/image/upload/v1542179593/adapt_learning/logo_matpel/logo_fisika.jpg"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Fisika",
+            "wrap": true,
+            "weight": "bold",
+            "size": "xl"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "UN",
+                "wrap": true,
+                "weight": "bold",
+                "size": "xl",
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": ", SBMPTN",
+                "wrap": true,
+                "weight": "bold",
+                "size": "sm",
+                "flex": 0
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "(H.R. Bukhari dan Muslim)",
+                "wrap": true,
+                "size": "xxs",
+                "flex": 0
+              }
+            ]
+          }, 
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "”Tidak beriman seseorang di antara kalian hingga ia mencintai Saudaranya sebagaimana mencintai dirinya sendiri.”",
+                "wrap": true,
+                "size": "xxs",
+                "color": "#94b1b9",
+                "flex": 0
+              }
+            ]
+          }
+        ]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "button",
+            "style": "primary",
+            "action": {
+              "type": "postback",
+              "label": "UN Fisika",
+              "displayText" : "UN Fisika",
+              "data" : "UN Fisika"
+            }
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "SBMPTN Fisika",
+              "displayText" : "SBMPTN Fisika",
+              "data" : "SBMPTN Fisika"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "bubble",
+      "hero": {
+        "type": "image",
+        "size": "full",
+        "aspectRatio": "20:13",
+        "aspectMode": "cover",
+        "url": "https://res.cloudinary.com/widya-ai/image/upload/v1542177659/adapt_learning/logo_matpel/logo_Mtk.jpg"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Matematika",
+            "wrap": true,
+            "weight": "bold",
+            "size": "xl"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "UN",
+                "wrap": true,
+                "weight": "bold",
+                "size": "xl",
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": ", SBMPTN",
+                "wrap": true,
+                "weight": "bold",
+                "size": "sm",
+                "flex": 0
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "(H.R. Bukhari dan Muslim)",
+                "wrap": true,
+                "size": "xxs",
+                "flex": 0
+              }
+            ]
+          }, 
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "”Tidak beriman seseorang di antara kalian hingga ia mencintai Saudaranya sebagaimana mencintai dirinya sendiri.”",
+                "wrap": true,
+                "size": "xxs",
+                "color": "#94b1b9",
+                "flex": 0
+              }
+            ]
+          }
+        ]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "button",
+            "style": "primary",
+            "action": {
+              "type": "postback",
+              "label": "UN Matematika",
+              "displayText" : "UN Matematika",
+              "data" : "UN Matematika"
+            }
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "SBMPTN Matematika",
+              "displayText" : "SBMPTN Matematika",
+              "data" : "SBMPTN Matematika"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "bubble",
+      "hero": {
+        "type": "image",
+        "size": "full",
+        "aspectRatio": "20:13",
+        "aspectMode": "cover",
+        "url": "https://res.cloudinary.com/widya-ai/image/upload/v1542179593/adapt_learning/logo_matpel/logo_chemistry.jpg"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Kimia",
+            "wrap": true,
+            "weight": "bold",
+            "size": "xl"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "UN",
+                "wrap": true,
+                "weight": "bold",
+                "size": "xl",
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": ", SBMPTN",
+                "wrap": true,
+                "weight": "bold",
+                "size": "sm",
+                "flex": 0
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "(H.R. Bukhari dan Muslim)",
+                "wrap": true,
+                "size": "xxs",
+                "flex": 0
+              }
+            ]
+          }, 
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "”Tidak beriman seseorang di antara kalian hingga ia mencintai Saudaranya sebagaimana mencintai dirinya sendiri.”",
+                "wrap": true,
+                "size": "xxs",
+                "color": "#94b1b9",
+                "flex": 0
+              }
+            ]
+          }
+        ]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "button",
+            "style": "primary",
+            "action": {
+              "type": "postback",
+              "label": "UN Kimia",
+              "displayText" : "UN Kimia",
+              "data" : "UN Kimia"
+            }
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "SBMPTN Kimia",
+              "displayText" : "SBMPTN Kimia",
+              "data" : "SBMPTN Kimia"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
