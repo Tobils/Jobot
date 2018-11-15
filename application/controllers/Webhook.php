@@ -1,13 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-// use \LINE\LINEBot;
-// use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
-// use \LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
-// use \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
-// use \LINE\LINEBot\MessageBuilder\StickerMessageBuilder;
-// use \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
-// use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
-// use \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+use \LINE\LINEBot;
+use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
+use \LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
+use \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use \LINE\LINEBot\MessageBuilder\StickerMessageBuilder;
+use \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
+use \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
 class Webhook extends CI_Controller {
 
@@ -118,10 +118,26 @@ class Webhook extends CI_Controller {
        // send question no.1
        $this->sendQuestion($event['replyToken'], 1);
        
-     } else {
-      $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';
-      $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
-      $this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
+    } else {
+    //   $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';
+    //   $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
+    //   $this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
+
+    $flexTemplate = file_get_contents(APPPATH.'../flex_message.json'); // load template flex message
+
+                            $result = $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+                                'replyToken' => $event['replyToken'],
+                                'messages'   => [
+                                    [
+                                        'type'     => 'flex',
+                                        'altText'  => 'Semangat menggapai mimpi !',
+                                        'contents' => json_decode($flexTemplate)
+                                    ]
+                                ],
+                            ]);
+                            //return $res->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
+                     echo $result;
+                       
      }
 
    // if user already begin test
