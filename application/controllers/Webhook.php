@@ -135,7 +135,7 @@ class Webhook extends CI_Controller {
       //  $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';
       //  $textMessageBuilder = new TextMessageBuilder($message);
       //  $this->bot->replyMessage($event['replyToken'], $textMessageBuilder);
-       $this->$bot->replyText($event['replyToken'], $event['message']['text']);
+       $this->$bot->replyText($event['replyToken'], $userMessage);
      }
 
    // if user already begin test
