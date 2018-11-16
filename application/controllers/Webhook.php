@@ -131,11 +131,9 @@ class Webhook extends CI_Controller {
               ]
           ],
       ]);
-    } 
-    elseif (strtolower($userMessage) == 'tes'){
       $stickerMessageBuilder = new StickerMessageBuilder(1, 100);
       $this->bot->replyMessage($event['replyToken'], $stickerMessageBuilder);
-    }
+    } 
     else {
       $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';
       $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
