@@ -117,11 +117,11 @@ class Webhook extends CI_Controller {
        $this->tebakkode_m->setUserProgress($this->user['user_id'], 1);
        // send question no.1
        $this->sendQuestion($event['replyToken'], 1);
-       
     }
+    
     elseif(strtolower($userMessage) == 'flex'){
       $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
-      $this->bot->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+      $result = $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
           'replyToken' => $event['replyToken'],
           'messages'   => [
               [
@@ -131,6 +131,7 @@ class Webhook extends CI_Controller {
               ]
           ],
       ]);
+      $this->bot->result;
 
     } 
     else {
