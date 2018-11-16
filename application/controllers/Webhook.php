@@ -120,9 +120,9 @@ class Webhook extends CI_Controller {
        
     }
     elseif(strtolower($userMessage) == 'flex'){
+      $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
       $stickerMessageBuilder = new StickerMessageBuilder(1, 100);
       $this->bot->replyMessage($event['replyToken'], $stickerMessageBuilder);
-      $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
       $this->bot->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
           'replyToken' => $event['replyToken'],
           'messages'   => [
