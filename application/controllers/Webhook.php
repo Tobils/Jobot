@@ -111,33 +111,25 @@ class Webhook extends CI_Controller {
    {
      if(strtolower($userMessage) == 'ayok')
      {
-      //  // reset score
-      //  $this->tebakkode_m->setScore($this->user['user_id'], 0);
-      //  // update number progress
-      //  $this->tebakkode_m->setUserProgress($this->user['user_id'], 1);
-      //  // send question no.1
-      //  $this->sendQuestion($event['replyToken'], 1);
-
-       $stickerMessageBuilder = new StickerMessageBuilder(1, 3);
-       $this->bot->replyMessage($replyToken, $stickerMessageBuilder);
-       
+       // reset score
+       $this->tebakkode_m->setScore($this->user['user_id'], 0);
+       // update number progress
+       $this->tebakkode_m->setUserProgress($this->user['user_id'], 1);
+       // send question no.1
+       $this->sendQuestion($event['replyToken'], 1);       
     }
     elseif(strtolower($userMessage) == 'flex'){
-      $stickerMessageBuilder = new StickerMessageBuilder(1, 3);
-      $this->bot->replyMessage($replyToken, $stickerMessageBuilder);
-
-
-      // $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
-      // $this->bot->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
-      //     'replyToken' => $event['replyToken'],
-      //     'messages'   => [
-      //         [
-      //             'type'     => 'flex',
-      //             'altText'  => 'Semangat menggapai mimpi !',
-      //             'contents' => json_decode($flexTemplate)
-      //         ]
-      //     ],
-      // ]);
+      $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
+      $this->bot->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+          'replyToken' => $event['replyToken'],
+          'messages'   => [
+              [
+                  'type'     => 'flex',
+                  'altText'  => 'Semangat menggapai mimpi !',
+                  'contents' => json_decode($flexTemplate)
+              ]
+          ],
+      ]);
     } 
     else {
       $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';
