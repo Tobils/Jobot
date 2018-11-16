@@ -123,9 +123,20 @@ class Webhook extends CI_Controller {
       $this->bot->stickerMessage($event);
     } 
     else {
-      $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';
-      $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
-      $this->bot->replyMessage($event['replyToken'], $textMessageBuilder);     
+   // create sticker message
+   $stickerMessageBuilder = new StickerMessageBuilder(1, 106);
+
+   // create text message
+   $message = 'Silakan kirim pesan "ayok" untuk memulai kuis.';
+   $textMessageBuilder = new TextMessageBuilder($message);
+
+   // merge all message
+   $multiMessageBuilder = new MultiMessageBuilder();
+   $multiMessageBuilder->add($stickerMessageBuilder);
+   $multiMessageBuilder->add($textMessageBuilder);
+
+   // send message
+   $this->bot->replyMessage($event['replyToken'], $multiMessageBuilder);    
      }
 
    // if user already begin test
