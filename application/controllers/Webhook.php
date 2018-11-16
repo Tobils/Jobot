@@ -118,21 +118,25 @@ class Webhook extends CI_Controller {
        // send question no.1
        $this->sendQuestion($event['replyToken'], 1);
        
-    } else {
-    $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
-    $this->bot->post(APPPATH.'/lib'.LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
-        'replyToken' => $event['replyToken'],
-        'messages'   => [
-            [
-                'type'     => 'flex',
-                'altText'  => 'Semangat menggapai mimpi !',
-                'contents' => json_decode($flexTemplate)
-            ]
-        ],
-    ]);
-    //   $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';
-    //   $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
-    //   $this->bot->replyMessage($event['replyToken'], $textMessageBuilder);     
+    }
+    elseif(strtolower($userMessage) == 'flex'){
+      $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
+      $this->bot->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+          'replyToken' => $event['replyToken'],
+          'messages'   => [
+              [
+                  'type'     => 'flex',
+                  'altText'  => 'Semangat menggapai mimpi !',
+                  'contents' => json_decode($flexTemplate)
+              ]
+          ],
+      ]);
+    } 
+    
+    else {
+      $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';
+      $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
+      $this->bot->replyMessage($event['replyToken'], $textMessageBuilder);     
      }
 
    // if user already begin test
