@@ -120,7 +120,7 @@ class Webhook extends CI_Controller {
     }
     
     elseif(strtolower($userMessage) == 'flex'){
-      $this->bot->view_Flex();
+      continue;
     } 
     else {
       $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';

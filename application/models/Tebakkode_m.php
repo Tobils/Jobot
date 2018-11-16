@@ -1,18 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-// added
-use \LINE\LINEBot;
-use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
-use \LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
-use \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
-use \LINE\LINEBot\MessageBuilder\StickerMessageBuilder;
-use \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
-use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
-use \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+
 
 class Tebakkode_m extends CI_Model {
 
-  private $bot; // added
-
+  
   function __construct(){
     parent::__construct();
     $this->load->database();
@@ -86,21 +77,5 @@ class Tebakkode_m extends CI_Model {
       ->update('users');
 
     return $this->db->affected_rows();
-  }
-
-  function view_Flex()
-  {
-    $flexTemplate = file_get_contents(APPPATH.'/models/flex_message.json'); // load template flex message
-    $result = $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
-      'replyToken' => $event['replyToken'],
-      'messages'   => [
-          [
-              'type'     => 'flex',
-              'altText'  => 'Semangat menggapai mimpi !',
-              'contents' => json_decode($flexTemplate)
-          ]
-      ],
-  ]);
-  return $res->withJson($result->getJSONDecodedBody(), $result->getHTTPStatus());
   }
 }
