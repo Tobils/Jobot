@@ -7,10 +7,6 @@ class Tebakkode_m extends CI_Model {
   function __construct(){
     parent::__construct();
     $this->load->database();
-
-    // create bot object (added)
-    $httpClient = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
-    $bot  = new LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
   }
 
   // Events Log
