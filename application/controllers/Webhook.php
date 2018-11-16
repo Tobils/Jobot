@@ -116,7 +116,8 @@ class Webhook extends CI_Controller {
        // update number progress
        $this->tebakkode_m->setUserProgress($this->user['user_id'], 1);
        // send question no.1
-       $this->sendQuestion($event['replyToken'], 1);       
+       $this->sendQuestion($event['replyToken'], 1);
+       
     }
     elseif(strtolower($userMessage) == 'flex'){
       $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
@@ -131,6 +132,10 @@ class Webhook extends CI_Controller {
           ],
       ]);
     } 
+    elseif (strtolower($userMessage) == 'tes'){
+      $stickerMessageBuilder = new StickerMessageBuilder(1, 3);
+      $this->bot->replyMessage($replyToken, $stickerMessageBuilder);
+    }
     else {
       $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';
       $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
