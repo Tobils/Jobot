@@ -133,7 +133,7 @@ class Webhook extends CI_Controller {
       ]);
     } 
     elseif (strtolower($userMessage) == 'tes'){
-      $stickerMessageBuilder = new StickerMessageBuilder(1, 3);
+      $stickerMessageBuilder = new StickerMessageBuilder(1, 100);
       $this->bot->replyMessage($replyToken, $stickerMessageBuilder);
     }
     else {
