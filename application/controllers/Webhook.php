@@ -111,12 +111,15 @@ class Webhook extends CI_Controller {
    {
      if(strtolower($userMessage) == 'ayok')
      {
-       // reset score
-       $this->tebakkode_m->setScore($this->user['user_id'], 0);
-       // update number progress
-       $this->tebakkode_m->setUserProgress($this->user['user_id'], 1);
-       // send question no.1
-       $this->sendQuestion($event['replyToken'], 1);
+      //  // reset score
+      //  $this->tebakkode_m->setScore($this->user['user_id'], 0);
+      //  // update number progress
+      //  $this->tebakkode_m->setUserProgress($this->user['user_id'], 1);
+      //  // send question no.1
+      //  $this->sendQuestion($event['replyToken'], 1);
+
+       $stickerMessageBuilder = new StickerMessageBuilder(1, 3);
+       $this->bot->replyMessage($replyToken, $stickerMessageBuilder);
        
     }
     elseif(strtolower($userMessage) == 'flex'){
@@ -136,7 +139,6 @@ class Webhook extends CI_Controller {
       //     ],
       // ]);
     } 
-    
     else {
       $message = 'Silakan kirim pesan "ayok" untuk memulai latihan.';
       $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
