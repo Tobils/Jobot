@@ -120,23 +120,25 @@ class Webhook extends CI_Controller {
     }
     
     elseif(strtolower($userMessage) == 'flex'){
-      $this->bot->stickerMessage($event);
+      $message = 'Kamu mengirimkan pesan '. $userMessage;
+      $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
+      $this->bot->replyMessage($event['replyToken'], $textMessageBuilder); 
     } 
     else {
-   // create sticker message
-   $stickerMessageBuilder = new StickerMessageBuilder(1, 106);
+      // create sticker message
+      $stickerMessageBuilder = new StickerMessageBuilder(1, 106);
 
-   // create text message
-   $message = 'Silakan kirim pesan "ayok" untuk memulai kuis.';
-   $textMessageBuilder = new TextMessageBuilder($message);
+      // create text message
+      $message = 'Silakan kirim pesan "ayok" untuk memulai kuis.';
+      $textMessageBuilder = new TextMessageBuilder($message);
 
-   // merge all message
-   $multiMessageBuilder = new MultiMessageBuilder();
-   $multiMessageBuilder->add($stickerMessageBuilder);
-   $multiMessageBuilder->add($textMessageBuilder);
+      // merge all message
+      $multiMessageBuilder = new MultiMessageBuilder();
+      $multiMessageBuilder->add($stickerMessageBuilder);
+      $multiMessageBuilder->add($textMessageBuilder);
 
-   // send message
-   $this->bot->replyMessage($event['replyToken'], $multiMessageBuilder);    
+      // send message
+      $this->bot->replyMessage($event['replyToken'], $multiMessageBuilder); 
      }
 
    // if user already begin test
