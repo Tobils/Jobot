@@ -122,23 +122,9 @@ class Webhook extends CI_Controller {
     }
     
     elseif(strtolower($userMessage) == 'flex'){
-      $flexTemplate = file_get_contents(APPPATH ."/controllers/flex_message.json"); // load template flex message
       $message = 'Kamu mengirimkan pesan '. $userMessage;
-      $textMessageBuilder = new TextMessageBuilder($message);
-      $this->bot->replyMessage([
-          'replyToken' => $event['replyToken'],
-          'messages'   => [
-              [
-                  'type'     => 'flex',
-                  'altText'  => 'selamat pesan flex km berhasil ditampilkan',
-                  'contents' => json_decode($textMessageBuilder)
-              ]
-          ],
-      ]);
-
-      // $message = 'Kamu mengirimkan pesan '. $userMessage;
-      // $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
-      // $this->bot->replyMessage($event['replyToken'], $textMessageBuilder); 
+      $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
+      $this->bot->replyMessage($event['replyToken'], $textMessageBuilder); 
 
       // catatan untuk menampilkan pesan yang dikirim oleh user yng berupa fhoto atau video menjadi flex message
     } 
@@ -209,9 +195,16 @@ class Webhook extends CI_Controller {
 
  private function checkAnswer($message, $replyToken)
  {
+    $res = $this->bot->getProfile($event['source']['userId']);
+
    // if answer is true, increment score
    if($this->tebakkode_m->isAnswerEqual($this->user['number'], $message)){
      $this->user['score']++;
+     $profile = $res->getJSONDecodedBody();
+     $message  = "Jawaban " . $profile['displayName'] . " Benar !";
+     $textMessageBuilder = new TextMessageBuilder($message);
+     $this->$bot->replyMessage($replyToken, $textMessageBuilder); // kirim pesan apabila jawaban betul
+
      $this->tebakkode_m->setScore($this->user['user_id'], $this->user['score']);
    }
 
