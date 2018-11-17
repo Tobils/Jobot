@@ -121,7 +121,7 @@ class Webhook extends CI_Controller {
     
     elseif(strtolower($userMessage) == 'flex'){
       $flexTemplate = file_get_contents(APPPATH ."/controllers/flex_message.json"); // load template flex message
-      $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+      $this->$httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
           'replyToken' => $event['replyToken'],
           'messages'   => [
               [
@@ -131,7 +131,11 @@ class Webhook extends CI_Controller {
               ]
           ],
       ]);
-      
+
+
+     
+
+
 
       $message = 'Kamu mengirimkan pesan '. $userMessage;
       $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
