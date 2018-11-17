@@ -23,9 +23,10 @@ class Webhook extends CI_Controller {
     parent::__construct();
     $this->load->model('tebakkode_m');
  
-    // create bot object
+    // create bot object ($this digunakan untuk mengakses anggota kelas di dalam lingkukngan kelas) (-> untuk mengakses anggota objek)
     $httpClient = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
     $this->bot  = new LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
+    // $this-> digunkan untuk mengakses anggota objek yg masih berada dalam anggota kelas
   }
 
   public function index()
@@ -122,9 +123,21 @@ class Webhook extends CI_Controller {
     }
     
     elseif(strtolower($userMessage) == 'flex'){
-      $message = 'Kamu mengirimkan pesan '. $userMessage;
-      $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
-      $this->bot->replyMessage($event['replyToken'], $textMessageBuilder); 
+      $flexTemplate = file_get_contents("flex_message.json"); // load template flex message
+      $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+          'replyToken' => $event['replyToken'],
+          'messages'   => [
+              [
+                  'type'     => 'flex',
+                  'altText'  => 'Semangat menggapai mimpi !',
+                  'contents' => json_decode($flexTemplate)
+              ]
+          ],
+      ]);
+                       
+      // $message = 'Kamu mengirimkan pesan '. $userMessage;
+      // $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
+      // $this->bot->replyMessage($event['replyToken'], $textMessageBuilder); 
 
       // catatan untuk menampilkan pesan yang dikirim oleh user yng berupa fhoto atau video menjadi flex message
     } 
@@ -198,11 +211,10 @@ class Webhook extends CI_Controller {
    // if answer is true, increment score
    if($this->tebakkode_m->isAnswerEqual($this->user['number'], $message)){
      $this->user['score']++;
+     $this->tebakkode_m->setScore($this->user['user_id'], $this->user['score']);
      $message  = " Benar !";
      $textMessageBuilder = new TextMessageBuilder($message);
      $this->bot->replyMessage($event['replyToken'], $textMessageBuilder); // kirim pesan apabila jawaban betul
-
-     $this->tebakkode_m->setScore($this->user['user_id'], $this->user['score']);
    }
 
    if($this->user['number'] < 10)

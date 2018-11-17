@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
+'''
+  nama file database pada postgresql dengan laman pgadmin 4 jobot : ddce5ju9sqsual
+'''
 
 class Tebakkode_m extends CI_Model {
 
