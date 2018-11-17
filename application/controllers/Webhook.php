@@ -195,13 +195,10 @@ class Webhook extends CI_Controller {
 
  private function checkAnswer($message, $replyToken)
  {
-    $res = $this->bot->getProfile($event['source']['userId']);
-
    // if answer is true, increment score
    if($this->tebakkode_m->isAnswerEqual($this->user['number'], $message)){
      $this->user['score']++;
-     $profile = $res->getJSONDecodedBody();
-     $message  = "Jawaban " . $profile['displayName'] . " Benar !";
+     $message  = " Benar !";
      $textMessageBuilder = new TextMessageBuilder($message);
      $this->$bot->replyMessage($replyToken, $textMessageBuilder); // kirim pesan apabila jawaban betul
 
