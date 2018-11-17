@@ -9,6 +9,8 @@ use \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 
+
+
 class Webhook extends CI_Controller {
 
   private $bot;
@@ -121,20 +123,24 @@ class Webhook extends CI_Controller {
     
     elseif(strtolower($userMessage) == 'flex'){
       $flexTemplate = file_get_contents(APPPATH ."/controllers/flex_message.json"); // load template flex message
+      $message = 'Kamu mengirimkan pesan '. $userMessage;
+      $textMessageBuilder = new TextMessageBuilder($message);
       $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
           'replyToken' => $event['replyToken'],
           'messages'   => [
               [
                   'type'     => 'flex',
-                  'altText'  => 'Semangat menggapai mimpi !',
-                  'contents' => json_decode($flexTemplate)
+                  'altText'  => 'selamat pesan flex km berhasil ditampilkan',
+                  'contents' => json_decode($textMessageBuilder)
               ]
           ],
       ]);
 
-      $message = 'Kamu mengirimkan pesan '. $userMessage;
-      $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
-      $this->bot->replyMessage($event['replyToken'], $textMessageBuilder); 
+      // $message = 'Kamu mengirimkan pesan '. $userMessage;
+      // $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
+      // $this->bot->replyMessage($event['replyToken'], $textMessageBuilder); 
+
+      // catatan untuk menampilkan pesan yang dikirim oleh user yng berupa fhoto atau video menjadi flex message
     } 
     else {
       // create sticker message
