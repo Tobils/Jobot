@@ -200,7 +200,7 @@ class Webhook extends CI_Controller {
      $this->user['score']++;
      $message  = " Benar !";
      $textMessageBuilder = new TextMessageBuilder($message);
-     $this->$bot->replyMessage($replyToken, $textMessageBuilder); // kirim pesan apabila jawaban betul
+     $this->bot->replyMessage($event['replyToken'], $textMessageBuilder); // kirim pesan apabila jawaban betul
 
      $this->tebakkode_m->setScore($this->user['user_id'], $this->user['score']);
    }
