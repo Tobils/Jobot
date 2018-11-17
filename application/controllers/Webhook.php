@@ -125,7 +125,7 @@ class Webhook extends CI_Controller {
       $flexTemplate = file_get_contents(APPPATH ."/controllers/flex_message.json"); // load template flex message
       $message = 'Kamu mengirimkan pesan '. $userMessage;
       $textMessageBuilder = new TextMessageBuilder($message);
-      $this->bot->replyMessage(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+      $this->bot->replyMessage([
           'replyToken' => $event['replyToken'],
           'messages'   => [
               [
