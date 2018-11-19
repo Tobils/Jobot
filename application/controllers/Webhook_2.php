@@ -110,6 +110,15 @@ class Webhook extends CI_Controller {
 
  private function textMessage($event)
  {
+     // dipisahkan antara pesan text dan pesan postback
+     if(strtolower($event['postback']['data'] == 'un biologi'))
+     {
+         
+     }
+
+
+
+
    $userMessage = $event['message']['text']; // mengambil pesan text dari event
    if($this->user['number'] == 0) // user belum mengerjakan kuis
    {
@@ -160,6 +169,8 @@ class Webhook extends CI_Controller {
      $this->checkAnswer($userMessage, $event['replyToken']);
    }
  }
+
+ 
 
 
  private function stickerMessage($event)

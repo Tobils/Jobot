@@ -113,17 +113,9 @@ class Webhook extends CI_Controller {
    $userMessage = $event['message']['text']; // mengambil pesan text dari event
    if($this->user['number'] == 0) // user belum mengerjakan kuis
    {
+
      if(strtolower($userMessage) == 'ayok')
      {
-       // reset score
-       $this->tebakkode_m->setScore($this->user['user_id'], 0);
-       // update number progress
-       $this->tebakkode_m->setUserProgress($this->user['user_id'], 1);
-       // send question no.1
-       $this->sendQuestion($event['replyToken'], 1);
-    }
-    
-    elseif(strtolower($userMessage) == 'flex coba'){
       $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
       $js_dcd = json_decode($flexTemplate);
 
@@ -137,13 +129,25 @@ class Webhook extends CI_Controller {
               ]
           ],
       ]);
-    } 
+    }
+
+    elseif(strtolower($event['postback']['data'] == 'un bioloig'))
+    {
+      // reset score
+      $this->tebakkode_m->setScore($this->user['user_id'], 0);
+      // update number progress
+      $this->tebakkode_m->setUserProgress($this->user['user_id'], 1);
+      // send question no.1
+      $this->sendQuestion($event['replyToken'], 1);
+
+    }
+
     else {
       // create sticker message
       $stickerMessageBuilder = new StickerMessageBuilder(1, 106);
 
       // create text message
-      $message = 'Silakan kirim pesan "ayok" untuk memulai kuis.';
+      $message = 'Silakan kirim pesan "ayok" untuk memulai latihan UN';
       $textMessageBuilder = new TextMessageBuilder($message);
 
       // merge all message
