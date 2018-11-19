@@ -3,7 +3,7 @@
   nama file database pada postgresql dengan laman pgadmin 4 jobot : ddce5ju9sqsual
 '''
 
-class Tebakkode_m extends CI_Model {
+class Latihan_UN extends CI_Model {
 
   
   function __construct(){

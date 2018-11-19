@@ -21,7 +21,7 @@ class Webhook extends CI_Controller {
   function __construct()
   {
     parent::__construct();
-    $this->load->model('tebakkode_m');
+    $this->load->model('Latihan_UN');
  
     // create bot object ($this digunakan untuk mengakses anggota kelas di dalam lingkukngan kelas) (-> untuk mengakses anggota objek)
     $httpClient = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
@@ -124,6 +124,8 @@ class Webhook extends CI_Controller {
     
     elseif(strtolower($userMessage) == 'flex'){
       $flexTemplate = file_get_contents("flex_message.json"); // load template flex message
+      
+
       $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
           'replyToken' => $event['replyToken'],
           'messages'   => [
@@ -134,6 +136,7 @@ class Webhook extends CI_Controller {
               ]
           ],
       ]);
+      log_message('error', 'pesan error');
                        
       // $message = 'Kamu mengirimkan pesan '. $userMessage;
       // $textMessageBuilder = new TextMessageBuilder($message); // untuk membalas dengan pesan yang sama dr user ganti $messaeg dengan $userMessage
