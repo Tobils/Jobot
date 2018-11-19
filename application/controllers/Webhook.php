@@ -17,6 +17,7 @@ class Webhook extends CI_Controller {
   private $events;
   private $signature;
   private $user;
+  private $httpClient;
 
   function __construct()
   {
@@ -24,8 +25,8 @@ class Webhook extends CI_Controller {
     $this->load->model('tebakkode_m');
  
     // create bot object ($this digunakan untuk mengakses anggota kelas di dalam lingkukngan kelas) (-> untuk mengakses anggota objek)
-    $httpClient = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
-    $this->bot  = new LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
+    $this->$httpClient = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
+    $this->bot  = new LINEBot($this->$httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
     // $this-> digunkan untuk mengakses anggota objek yg masih berada dalam anggota kelas
   }
 
@@ -125,18 +126,17 @@ class Webhook extends CI_Controller {
     elseif(strtolower($userMessage) == 'flex'){
       $flexTemplate = file_get_contents("flex_message.json"); // load template flex message
       $js_dcd = json_decode($flexTemplate);
-      $this->bot->replyMessage($event['replyToken'], $js_dcd); 
-      
-      // $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
-      //     'replyToken' => $event['replyToken'],
-      //     'messages'   => [
-      //         [
-      //             'type'     => 'flex',
-      //             'altText'  => 'Semangat menggapai mimpi !',
-      //             'contents' => $js_dcd 
-      //         ]
-      //     ],
-      // ]);
+
+      $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+          'replyToken' => $event['replyToken'],
+          'messages'   => [
+              [
+                  'type'     => 'flex',
+                  'altText'  => 'Semangat menggapai mimpi !',
+                  'contents' => $js_dcd 
+              ]
+          ],
+      ]);
       
                        
       // $message = 'Kamu mengirimkan pesan '. $userMessage;
