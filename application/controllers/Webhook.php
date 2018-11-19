@@ -21,7 +21,7 @@ class Webhook extends CI_Controller {
   function __construct()
   {
     parent::__construct();
-    $this->load->model('latihan_un');
+    $this->load->model('tebakkode_m');
  
     // create bot object ($this digunakan untuk mengakses anggota kelas di dalam lingkukngan kelas) (-> untuk mengakses anggota objek)
     $httpClient = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
