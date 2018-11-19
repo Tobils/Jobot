@@ -127,7 +127,7 @@ class Webhook extends CI_Controller {
       $js_dcd = json_decode($flexTemplate);
       
 
-      $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+      $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
           'replyToken' => $event['replyToken'],
           'messages'   => [
               [
