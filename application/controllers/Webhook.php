@@ -124,7 +124,7 @@ class Webhook extends CI_Controller {
     }
     
     elseif(strtolower($userMessage) == 'cuk'){
-      $flexTemplate = file_get_contents("flex_message.json"); // load template flex message
+      $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
       $js_dcd = json_decode($flexTemplate);
 
       $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
