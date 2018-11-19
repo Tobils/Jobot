@@ -123,7 +123,7 @@ class Webhook extends CI_Controller {
        $this->sendQuestion($event['replyToken'], 1);
     }
     
-    elseif(strtolower($userMessage) == 'flex coba'){
+    elseif(strtolower($userMessage) == 'cuk'){
       $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
       $js_dcd = json_decode($flexTemplate);
 
