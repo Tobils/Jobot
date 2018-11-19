@@ -125,9 +125,7 @@ class Webhook extends CI_Controller {
     elseif(strtolower($userMessage) == 'flex'){
       $flexTemplate = file_get_contents("flex_message.json"); // load template flex message
       $js_dcd = json_decode($flexTemplate);
-      
-
-      $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+      $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
           'replyToken' => $event['replyToken'],
           'messages'   => [
               [
