@@ -198,7 +198,6 @@ class Webhook extends CI_Controller {
    if($this->latihan_un->isAnswerEqual($this->user['number'], $message)){
      $this->user['score']++;
      $this->latihan_un->setScore($this->user['user_id'], $this->user['score']);
-
    }
 
    if($this->user['number'] < 10)
