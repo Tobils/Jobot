@@ -60,10 +60,10 @@
             "type": "button",
             "style": "primary",
             "action": {
-              "type": "postback",
+              "type": "message",
               "label": "UN Biologi",
               "displayText" : "UN Biologi",
-              "data" : "UN Biologi"
+              "text" : "UN Biologi"
             }
           }
         ]
