@@ -175,8 +175,8 @@ class Webhook extends CI_Controller {
    // get question from database
    $question = $this->latihan_un->getQuestion($questionNum);
 
-   // prepare answer options a s/d e
-   for($opsi = "a"; $opsi <= "e"; $opsi++) {
+   // prepare answer options a s/d d
+   for($opsi = "a"; $opsi <= "d"; $opsi++) {
        if(!empty($question['option_'.$opsi]))
            $options[] = new MessageTemplateActionBuilder($question['option_'.$opsi], $question['option_'.$opsi]);
    }
