@@ -13,15 +13,14 @@ class Webhook extends CI_Controller {
   private $signature;
   private $user;
   private $httpClient;
-  private $flexTemplate;
 
   function __construct()
   {
     parent::__construct();
     $this->load->model('latihan_un');
 
-    $this->$httpClient    = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
-    $this->bot            = new LINEBot($this->$httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
+    $httpClient    = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
+    $this->bot     = new LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
   }
   public function index()
   {
