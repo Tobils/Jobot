@@ -18,10 +18,8 @@ class Webhook extends CI_Controller {
   {
     parent::__construct();
     $this->load->model('latihan_un');
- 
-    // create bot object
-    $this->$httpClient = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
-    $this->bot  = new LINEBot($this->$httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
+    $httpClient = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
+    $this->bot  = new LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
   }
   public function index()
   {
@@ -101,7 +99,7 @@ class Webhook extends CI_Controller {
      if(strtolower($userMessage) == 'ayok')
      {
       $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
-      $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+      $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
           'replyToken' => $event['replyToken'],
           'messages'   => [
               [
