@@ -88,12 +88,12 @@ class Webhook extends CI_Controller {
 
      // create welcome message
      $message  = "Assalamualaikum Wr.Wb, " . $profile['displayName'] . "!\n";
-     $message  = "Jobot merupakan chatbot line yang membantu anda mempersiapkan diri menghadapi Ujian Nasional Biologi";
-     $message .= "Silakan kirim pesan \"ayok\" untuk memulai latihan.";
+     $message .= "Jobot merupakan chatbot line yang membantu anda mempersiapkan diri menghadapi Ujian Nasional Biologi";
+     $message .= " Silakan kirim pesan \"ayok\" untuk memulai latihan.";
      $textMessageBuilder = new TextMessageBuilder($message);
 
      // create sticker message
-     $stickerMessageBuilder = new StickerMessageBuilder(1, 3);
+     $stickerMessageBuilder = new StickerMessageBuilder(1, 2);
 
      // merge all message
      $multiMessageBuilder = new MultiMessageBuilder();
@@ -217,7 +217,7 @@ class Webhook extends CI_Controller {
      $textMessageBuilder1 = new TextMessageBuilder($message);
 
      // create sticker message
-     $stickerId = ($this->user['score'] < 8) ? 10 : 14;
+     $stickerId = ($this->user['score'] < 8) ? 110 : 14;
      $stickerMessageBuilder = new StickerMessageBuilder(1, $stickerId);
 
      // create play again message
