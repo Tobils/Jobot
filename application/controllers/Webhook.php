@@ -110,56 +110,58 @@ class Webhook extends CI_Controller {
 
  private function textMessage($event)
  {
-   $userMessage = $event['message']['text']; // mengambil pesan text dari event
-   if($this->user['number'] == 0) // user belum mengerjakan kuis
+   // pisahkan antara pesan berupa text, postback dan follow
+   if($this->user['number'] == 0)
    {
-
-     if(strtolower($userMessage) == 'ayok')
+     //pesan text
+     if(strtolower($event['message']['text'] == 'ayok'))
      {
-      $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
-      $js_dcd = json_decode($flexTemplate);
-
-      $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
-          'replyToken' => $event['replyToken'],
-          'messages'   => [
-              [
-                  'type'     => 'flex',
-                  'altText'  => 'Semangat menggapai mimpi !',
-                  'contents' => $js_dcd 
-              ]
-          ],
-      ]);
-    }
-
-    elseif(strtolower($event['postback']['data'] == 'un bioloig'))
-    {
-      // reset score
-      $this->tebakkode_m->setScore($this->user['user_id'], 0);
-      // update number progress
-      $this->tebakkode_m->setUserProgress($this->user['user_id'], 1);
-      // send question no.1
-      $this->sendQuestion($event['replyToken'], 1);
-
-    }
-
-    else {
-      // create sticker message
-      $stickerMessageBuilder = new StickerMessageBuilder(1, 106);
-
-      // create text message
-      $message = 'Silakan kirim pesan "ayok" untuk memulai latihan UN';
-      $textMessageBuilder = new TextMessageBuilder($message);
-
-      // merge all message
-      $multiMessageBuilder = new MultiMessageBuilder();
-      $multiMessageBuilder->add($stickerMessageBuilder);
-      $multiMessageBuilder->add($textMessageBuilder);
-
-      // send message
-      $this->bot->replyMessage($event['replyToken'], $multiMessageBuilder); 
+       // tampilkan flex message json
+       $template = file_get_contents(APPATH .'/controllers/flex_message.json');
+       $jsn_dcd  = json_decode($template);
+       $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+         'replayToken' => $event['replyToken'],
+         'message'     => [
+           [
+                'type'    => 'flex',
+                'altText' => 'Semengat Kawan !',
+                'content' => $jsn_dcd
+           ]
+           ],
+       ]);
      }
 
-   // if user already begin test
+     //pesan postback dari flex message
+     if(strtolower($event['postback']['data'] == 'un biologi'))
+     {
+        // reset score
+        $this->tebakkode_m->setScore($this->user['user_id'], 0);
+        // update number progress
+        $this->tebakkode_m->setUserProgress($this->user['user_id'], 1);
+        // send question no.1
+        $this->sendQuestion($event['replyToken'], 1);
+     }
+
+     // pesan text lainnya
+     else 
+     {
+        // create sticker message
+        $stickerMessageBuilder = new StickerMessageBuilder(1, 106);
+
+        // create text message
+        $message = 'Silakan kirim pesan "ayok" untuk memulai latihan UN';
+        $textMessageBuilder = new TextMessageBuilder($message);
+
+        // merge all message
+        $multiMessageBuilder = new MultiMessageBuilder();
+        $multiMessageBuilder->add($stickerMessageBuilder);
+        $multiMessageBuilder->add($textMessageBuilder);
+
+        // send message
+        $this->bot->replyMessage($event['replyToken'], $multiMessageBuilder); 
+     }
+   }
+   // user sudah memulai latihan UN
    } else {
      $this->checkAnswer($userMessage, $event['replyToken']);
    }
@@ -169,7 +171,7 @@ class Webhook extends CI_Controller {
  private function stickerMessage($event)
  {
    // create sticker message
-   $stickerMessageBuilder = new StickerMessageBuilder(1, 106);
+   $stickerMessageBuilder = new StickerMessageBuilder(1, 138);
 
    // create text message
    $message = 'Silakan kirim pesan "ayok" untuk memulai kuis.';
