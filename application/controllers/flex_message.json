@@ -61,9 +61,9 @@
             "style": "primary",
             "action": {
               "type": "postback",
-              "label": "UN Biologi",
-              "data" : "UN Biologi",
-              "text" : "UN Biologi"
+              "label": "Mulai UN",
+              "data" : "Mulai UN",
+              "text" : "Mulai UN"
             }
           }
         ]
