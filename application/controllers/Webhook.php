@@ -110,11 +110,14 @@ class Webhook extends CI_Controller {
 
  private function textMessage($event)
  {
+  $usertext     = $event['message']['text']; 
+  $userpostback = $event['postback']['data'];
+
    // pisahkan antara pesan berupa text, postback dan follow
    if($this->user['number'] == 0)
    {
      //pesan text
-     if(strtolower($event['message']['text']) == 'ayok')
+     if(strtolower($usertext) == 'ayok')
      {
        // tampilkan flex message json
        $template = file_get_contents(APPATH .'/controllers/flex_message.json');
@@ -132,7 +135,7 @@ class Webhook extends CI_Controller {
      }
 
      //pesan postback dari flex message
-     if(strtolower($event['postback']['data'] == 'un biologi'))
+     if(strtolower($userpostback) == 'un biologi')
      {
         // reset score
         $this->tebakkode_m->setScore($this->user['user_id'], 0);
