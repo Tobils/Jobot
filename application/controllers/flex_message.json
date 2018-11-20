@@ -62,7 +62,6 @@
             "action": {
               "type": "postback",
               "label": "UN Biologi",
-              "displayText" : "UN Biologi",
               "data" : "UN Biologi",
               "text" : "UN Biologi"
             }
