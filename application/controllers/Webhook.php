@@ -22,7 +22,7 @@ class Webhook extends CI_Controller {
   function __construct()
   {
     parent::__construct();
-    $this->load->model('tebakkode_m');
+    $this->load->model('latihan_un');
  
     // create bot object ($this digunakan untuk mengakses anggota kelas di dalam lingkukngan kelas) (-> untuk mengakses anggota objek)
     $this->$httpClient = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
@@ -33,7 +33,7 @@ class Webhook extends CI_Controller {
   public function index()
   {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-      echo "Hello Kamu sedang mengakses laman /index()";
+      echo "Hello Coders ! Kamu sedang mengakses laman /index()";
       header('HTTP/1.1 400 Only POST method allowed');
       exit;
     }
@@ -44,7 +44,7 @@ class Webhook extends CI_Controller {
     $this->events = json_decode($body, true);
  
     // save log every event requests
-    $this->tebakkode_m->log_events($this->signature, $body);
+    $this->latihan_un->log_events($this->signature, $body);
     
     // menyaring log dari user saja bukan dari group
     if(is_array($this->events['events'])){
@@ -54,7 +54,7 @@ class Webhook extends CI_Controller {
         if(! isset($event['source']['userId'])) continue;
  
         // get user data from database
-        $this->user = $this->tebakkode_m->getUser($event['source']['userId']);
+        $this->user = $this->latihan_un->getUser($event['source']['userId']);
  
         // if user not registered
         if(!$this->user) $this->followCallback($event);
@@ -88,7 +88,7 @@ class Webhook extends CI_Controller {
 
      // create welcome message
      $message  = "Assalamualaikum Wr.Wb, " . $profile['displayName'] . "!\n";
-     $message  = "Jobot merupakan chatbot line yang membantu anda mempersiapkan diri menghadapi Ujian Nasional dan Ujian SBMPTN ";
+     $message  = "Jobot merupakan chatbot line yang membantu anda mempersiapkan diri menghadapi Ujian Nasional Biologi";
      $message .= "Silakan kirim pesan \"ayok\" untuk memulai latihan.";
      $textMessageBuilder = new TextMessageBuilder($message);
 
@@ -104,7 +104,7 @@ class Webhook extends CI_Controller {
      $this->bot->replyMessage($event['replyToken'], $multiMessageBuilder);
 
      // save user data
-     $this->tebakkode_m->saveUser($profile);
+     $this->latihan_un->saveUser($profile);
    }
  }
 
@@ -137,11 +137,11 @@ class Webhook extends CI_Controller {
      if(strtolower($userMessage) == 'un biologi')
      {
         // reset score
-        $this->tebakkode_m->setScore($this->user['user_id'], 0);
+        $this->latihan_un->setScore($this->user['user_id'], 0);
         // update number progress
-        $this->tebakkode_m->setUserProgress($this->user['user_id'], 1);
+        $this->latihan_un->setUserProgress($this->user['user_id'], 1);
         // send question no.1
-        $this->sendQuestion($event['replyToken'], 1);
+        $this->sendQuestion($event['replyToken'], 1, $userMessage);
      }
 
      // pesan text lainnya
@@ -170,33 +170,13 @@ class Webhook extends CI_Controller {
    }
  }
 
-
- private function stickerMessage($event)
- {
-   // create sticker message
-   $stickerMessageBuilder = new StickerMessageBuilder(1, 138);
-
-   // create text message
-   $message = 'Silakan kirim pesan "ayok" untuk memulai kuis.';
-   $textMessageBuilder = new TextMessageBuilder($message);
-
-   // merge all message
-   $multiMessageBuilder = new MultiMessageBuilder();
-   $multiMessageBuilder->add($stickerMessageBuilder);
-   $multiMessageBuilder->add($textMessageBuilder);
-
-   // send message
-   $this->bot->replyMessage($event['replyToken'], $multiMessageBuilder);
- }
-
-
- public function sendQuestion($replyToken, $questionNum=1)
+ public function sendQuestion($replyToken, $questionNum=1, $userMessage)
  {
    // get question from database
-   $question = $this->tebakkode_m->getQuestion($questionNum);
+   $question = $this->latihan_un->getQuestion($questionNum);
 
-   // prepare answer options
-   for($opsi = "a"; $opsi <= "d"; $opsi++) {
+   // prepare answer options a s/d e
+   for($opsi = "a"; $opsi <= "e"; $opsi++) {
        if(!empty($question['option_'.$opsi]))
            $options[] = new MessageTemplateActionBuilder($question['option_'.$opsi], $question['option_'.$opsi]);
    }
@@ -215,18 +195,18 @@ class Webhook extends CI_Controller {
  private function checkAnswer($message, $replyToken)
  {
    // if answer is true, increment score
-   if($this->tebakkode_m->isAnswerEqual($this->user['number'], $message)){
+   if($this->latihan_un->isAnswerEqual($this->user['number'], $message)){
      $this->user['score']++;
-     $this->tebakkode_m->setScore($this->user['user_id'], $this->user['score']);
+     $this->latihan_un->setScore($this->user['user_id'], $this->user['score']);
      $message  = " Benar !";
      $textMessageBuilder = new TextMessageBuilder($message);
-     $this->bot->replyMessage($event['replyToken'], $textMessageBuilder); // kirim pesan apabila jawaban betul
+     $this->bot->replyMessage($replyToken, $textMessageBuilder); // kirim pesan apabila jawaban betul
    }
 
    if($this->user['number'] < 10)
    {
      // update number progress
-    $this->tebakkode_m->setUserProgress($this->user['user_id'], $this->user['number'] + 1);
+    $this->latihan_un->setUserProgress($this->user['user_id'], $this->user['number'] + 1);
 
      // send next question
      $this->sendQuestion($replyToken, $this->user['number'] + 1);
@@ -237,13 +217,13 @@ class Webhook extends CI_Controller {
      $textMessageBuilder1 = new TextMessageBuilder($message);
 
      // create sticker message
-     $stickerId = ($this->user['score'] < 8) ? 100 : 114;
+     $stickerId = ($this->user['score'] < 8) ? 10 : 14;
      $stickerMessageBuilder = new StickerMessageBuilder(1, $stickerId);
 
      // create play again message
      $message = ($this->user['score'] < 8) ?
-     'Jangan Nyerah !!! Ketik "ayok" untuk berlatih lagi!':
-     'Great! Mantap bro! Ketik "ayok" untuk berlatih lagi!';
+     'Man Jadda wa Jada!!! Ketik "ayok" untuk berlatih lagi!':
+     'Kamu Keren!!! Ketik "ayok" untuk berlatih lagi!';
      $textMessageBuilder2 = new TextMessageBuilder($message);
 
      // merge all message
@@ -254,7 +234,7 @@ class Webhook extends CI_Controller {
 
      // send reply message
      $this->bot->replyMessage($replyToken, $multiMessageBuilder);
-     $this->tebakkode_m->setUserProgress($this->user['user_id'], 0);
+     $this->latihan_un->setUserProgress($this->user['user_id'], 0);
    }
  }
 
