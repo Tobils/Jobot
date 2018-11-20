@@ -12,15 +12,14 @@ class Webhook extends CI_Controller {
   private $events;
   private $signature;
   private $user;
-  private $httpClient;
 
   function __construct()
   {
     parent::__construct();
     $this->load->model('latihan_un');
 
-    $httpClient    = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
-    $this->bot     = new LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
+    $httpC         = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
+    $this->bot     = new LINEBot($httpC, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
   }
   public function index()
   {
@@ -99,10 +98,11 @@ class Webhook extends CI_Controller {
    {
      if(strtolower($userMessage) == 'ayok')
      { 
+      $httpClient     = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
       $flexTemplate   = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
       $jsn_t          = json_decode($flexTemplate);
 
-      $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+      $httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
           'replyToken' => $event['replyToken'],
           'messages'   => [
               [
