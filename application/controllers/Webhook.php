@@ -114,7 +114,7 @@ class Webhook extends CI_Controller {
    if($this->user['number'] == 0)
    {
      //pesan text
-     if(strtolower($event['message']['text'] == 'ayok'))
+     if(strtolower($event['message']['text']) == 'ayok')
      {
        // tampilkan flex message json
        $template = file_get_contents(APPATH .'/controllers/flex_message.json');
