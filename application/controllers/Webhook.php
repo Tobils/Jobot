@@ -162,7 +162,8 @@ class Webhook extends CI_Controller {
      }
    }
    // user sudah memulai latihan UN
-   } else {
+   else 
+   {
      $this->checkAnswer($userMessage, $event['replyToken']);
    }
  }
