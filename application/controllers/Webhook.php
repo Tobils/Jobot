@@ -81,7 +81,7 @@ class Webhook extends CI_Controller {
      $message .= "Silakan kirim pesan \"ayok\" untuk memulai latihan.";
      $textMessageBuilder = new TextMessageBuilder($message);
      // create sticker message
-     $stickerMessageBuilder = new StickerMessageBuilder(1, 3);
+     $stickerMessageBuilder = new StickerMessageBuilder(1, 2);
      // merge all message
      $multiMessageBuilder = new MultiMessageBuilder();
      $multiMessageBuilder->add($textMessageBuilder);
@@ -100,7 +100,7 @@ class Webhook extends CI_Controller {
      if(strtolower($userMessage) == 'ayok')
      {
       $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
-      $this->bot->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+      $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
           'replyToken' => $event['replyToken'],
           'messages'   => [
               [
