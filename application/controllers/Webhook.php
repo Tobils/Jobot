@@ -132,7 +132,6 @@ class Webhook extends CI_Controller {
               ]
           ],
       ]);
-      
      }
 
      //pesan postback dari flex message
