@@ -119,19 +119,19 @@ class Webhook extends CI_Controller {
      //pesan text
      if(strtolower($usertext) == 'ayok')
      {
-       // tampilkan flex message json
-       $template = file_get_contents(APPATH .'/controllers/flex_message.json');
-       $jsn_dcd  = json_decode($template);
-       $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
-         'replayToken' => $event['replyToken'],
-         'message'     => [
-           [
-                'type'    => 'flex',
-                'altText' => 'Semengat Kawan !',
-                'content' => $jsn_dcd
-           ]
-           ],
-       ]);
+      $flexTemplate = file_get_contents(APPPATH.'/controllers/flex_message.json'); // load template flex message
+      $js_dcd = json_decode($flexTemplate);
+
+      $this->$httpClient->post(LINEBot::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
+          'replyToken' => $event['replyToken'],
+          'messages'   => [
+              [
+                  'type'     => 'flex',
+                  'altText'  => 'Semangat menggapai mimpi !',
+                  'contents' => $js_dcd 
+              ]
+          ],
+      ]);
      }
 
      //pesan postback dari flex message
