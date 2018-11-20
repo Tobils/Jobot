@@ -13,14 +13,15 @@ class Webhook extends CI_Controller {
   private $signature;
   private $user;
   private $httpClient;
+  
   function __construct()
   {
     parent::__construct();
     $this->load->model('latihan_un');
  
     // create bot object
-    $this->$httpClient = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
-    $this->bot  = new LINEBot($this->$httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
+    $httpClient = new CurlHTTPClient($_ENV['CHANNEL_ACCESS_TOKEN']);
+    $this->bot  = new LINEBot($httpClient, ['channelSecret' => $_ENV['CHANNEL_SECRET']]);
   }
   public function index()
   {
@@ -172,7 +173,7 @@ class Webhook extends CI_Controller {
    }
    else {
      // create user score message
-     $message = 'Skormu '. $this->user['score'];
+     $message = 'Nilaimu '. $this->user['score'];
      $textMessageBuilder1 = new TextMessageBuilder($message);
      // create sticker message
      $stickerId = ($this->user['score'] < 8) ? 110 : 4;
@@ -180,7 +181,7 @@ class Webhook extends CI_Controller {
      // create play again message
      $message = ($this->user['score'] < 8) ?
      'Man Jadda Wa Jada !!! Ketik "ayok" untuk berlatih lagi!':
-     'Great! Mantap bro! Ketik "ayok" untuk berlatih lagi!';
+     'Yeay! Mantap bro! Ketik "ayok" untuk berlatih lagi!';
      $textMessageBuilder2 = new TextMessageBuilder($message);
      // merge all message
      $multiMessageBuilder = new MultiMessageBuilder();
