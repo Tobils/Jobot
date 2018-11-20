@@ -87,8 +87,8 @@ class Webhook extends CI_Controller {
      $profile = $res->getJSONDecodedBody();
 
      // create welcome message
-     $message  = "Assalamualaikum Wr.Wb, " . $profile['displayName'] . "!\n";
-     $message .= "Jobot merupakan chatbot line yang membantu anda mempersiapkan diri menghadapi Ujian Nasional Biologi";
+     $message  = "Assalamualaikum Wr.Wb, " . $profile['displayName'] . "! \n";
+     $message .= "Jobot merupakan chatbot line yang membantu anda mempersiapkan diri menghadapi Ujian Nasional Biologi.";
      $message .= " Silakan kirim pesan \"ayok\" untuk memulai latihan.";
      $textMessageBuilder = new TextMessageBuilder($message);
 
@@ -198,9 +198,9 @@ class Webhook extends CI_Controller {
    if($this->latihan_un->isAnswerEqual($this->user['number'], $message)){
      $this->user['score']++;
      $this->latihan_un->setScore($this->user['user_id'], $this->user['score']);
-     $message  = " Benar !";
-     $textMessageBuilder = new TextMessageBuilder($message);
-     $this->bot->replyMessage($replyToken, $textMessageBuilder); // kirim pesan apabila jawaban betul
+    //  $message  = " Benar !";
+    //  $textMessageBuilder = new TextMessageBuilder($message);
+    //  $this->bot->replyMessage($replyToken, $textMessageBuilder); // kirim pesan apabila jawaban betul
    }
 
    if($this->user['number'] < 10)
