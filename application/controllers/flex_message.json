@@ -63,7 +63,7 @@
               "type": "postback",
               "label": "UN Biologi",
               "displayText" : "UN Biologi",
-              "text" : "UN Biologi"
+              "data" : "UN Biologi"
             }
           }
         ]
@@ -180,7 +180,7 @@
                 "text": "”Tidak beriman seseorang di antara kalian hingga ia mencintai Saudaranya sebagaimana mencintai dirinya sendiri.”",
                 "wrap": true,
                 "size": "xxs",
-                "color": "#91b1c0",
+                "color": "#efeeee",
                 "flex": 0
               }
             ]
