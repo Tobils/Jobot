@@ -128,7 +128,7 @@ class Webhook extends CI_Controller {
            [
                 'type'    => 'flex',
                 'altText' => 'Semengat Kawan !',
-                'content' => $jsn_dcd
+                'contents' => $jsn_dcd
            ]
            ],
        ]);
