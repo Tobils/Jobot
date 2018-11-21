@@ -173,6 +173,8 @@ class Webhook extends CI_Controller {
      $this->sendQuestion($replyToken, $this->user['number'] + 1);
    }
    else {
+     // soal ke 10
+    $this->latihan_un->setUserProgress($this->user['user_id'], $this->user['number'] + 1);
      // create user score message
      $message = 'Nilaimu '. $this->user['score'];
      $textMessageBuilder1 = new TextMessageBuilder($message);
